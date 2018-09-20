@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "budo src/index.js --open --live"
+  },
   "dependencies": {
     "noisejs": "^2.1.0"
+  },
+  "devDependencies": {
+    "budo": "^11.3.2"
   }
 }

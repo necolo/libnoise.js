@@ -1,36 +1,8 @@
 
 const createNoise = require('noisejs');
+const Libnoise = require('./noise');
+
 const noise = new createNoise.Noise(0.5);
-
-class Noise {
-    constructor (length) {
-        this.canvasScale = 100;
-        this.length = length;
-        this.octaves = 1;
-    }
-
-    setCanvasScale (s) {
-        this.canvasScale = s;
-    }
-
-    setOctaves (n) {
-        this.octaves = n;
-    }
-
-    coherentNoise (x, amplitudes = 1, frequency = 1) {
-        amplitudes = ~~ this.canvasScale / amplitudes;
-        frequency *= this.canvasScale;
-        return noise.simplex2(x / frequency, 1) * amplitudes;
-    }
-
-    perlinNoise (x) {
-        let y = 0;
-        for (let i = 0, f = 1; i < this.octaves; i ++, f *= 2) {
-            y += this.coherentNoise(x, undefined, f);
-        } 
-        return y;
-    }
-}
 
 function start () {
     const canvas = document.createElement('canvas');
@@ -52,7 +24,7 @@ function start () {
 
     drawYValue(ctx, origin, 0, '0');
 
-    const myNoise = new Noise(length);
+    const myNoise = new Libnoise(length, noise);
     myNoise.setOctaves(1);
 
     for (let x = 0; x < length; x += 1 / 100) {
