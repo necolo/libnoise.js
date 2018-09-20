@@ -1,6 +1,6 @@
-class Libnoise {
+class Noise {
     constructor (length, noise) {
-        this.canvasScale = 100;
+        this.scale = 100;
         this.length = length;
         this.octaves = 1;
         this.noise = noise;
@@ -8,8 +8,8 @@ class Libnoise {
         this.lacunarity = 1;
     }
 
-    setCanvasScale (s) {
-        this.canvasScale = s || 100;
+    setScale (s) {
+        this.scale = s || 100;
     }
 
     setOctaves (o) {
@@ -24,19 +24,33 @@ class Libnoise {
         this.lacunarity = l || 1;
     }
 
-    coherentNoise (x, frequency = 1, amplitudes = 1) {
-        amplitudes *= this.canvasScale;
-        frequency = this.canvasScale / frequency;
+    coherentNoise1 (x, frequency = 1, amplitudes = 1) {
+        amplitudes *= this.scale;
+        frequency = this.scale / frequency;
         return this.noise.simplex2(x / frequency, 1) * amplitudes;
     }
 
-    perlinNoise (x) {
-        let y = 0;
+    coherentNoise2 (x, y, frequency = 1, amplitudes = 1) {
+        amplitudes *= this.scale;
+        frequency = this.scale / frequency;
+        return this.noise.simplex2(x / frequency, y / frequency) * amplitudes;
+    }
+
+    noise1 (x) {
+        let r = 0;
         for (let i = 0, f = 1; i < this.octaves; i ++, f *= 2) {
-            y += this.coherentNoise(x, f * this.lacunarity, 1 / f * this.persistence);
+            r += this.coherentNoise1(x, f * this.lacunarity, 1 / f * this.persistence);
         } 
-        return y;
+        return r;
+    }
+
+    noise2 (x, y) {
+        let r = 0;
+        for (let i = 0, f = 1; i < this.octaves; i ++, f *= 2 ) {
+            r += this.coherentNoise2(x, y, f * this.lacunarity, 1 / f * this.persistence);
+        }
+        return r;
     }
 }
 
-module.exports = Libnoise;
+module.exports = Noise;
