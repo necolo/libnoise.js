@@ -1,6 +1,6 @@
 
 const createNoise = require('noisejs');
-const Libnoise = require('./noise');
+const libNoise = require('./noise');
 
 const noise = new createNoise.Noise(0.5);
 
@@ -24,14 +24,14 @@ function start () {
 
     drawYValue(ctx, origin, 0, '0');
 
-    const myNoise = new Libnoise(length, noise);
+    const myNoise = new libNoise(length, noise);
     window.noise = myNoise;
     myNoise.setOctaves(5);
     myNoise.setPersistence(1);
     myNoise.setLacunarity(1);
 
     for (let x = 0; x < length; x += 1 / 100) {
-        const y = myNoise.perlinNoise(x);
+        const y = myNoise.noise1(x);
         // const f = 1;
         // const y = myNoise.coherentNoise(x, f, 1 / f);
         drawPoint(ctx, origin, x, y);
