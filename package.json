@@ -1,10 +1,10 @@
 {
   "name": "noise",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/noise.js",
   "license": "MIT",
   "scripts": {
-    "start": "budo src/index.js --open --live"
+    "demo": "budo src/demo.js --open --live"
   },
   "dependencies": {
     "noisejs": "^2.1.0"
