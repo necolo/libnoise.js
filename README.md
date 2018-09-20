@@ -2,6 +2,8 @@
 This is a js version of [libnoise](http://libnoise.sourceforge.net/glossary/index.html#solidnoise).
 It's not complete, current step is only for personal study.
 
+![](./assets/octaves5.png)
+
 
 # usage
 ```
